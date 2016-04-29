@@ -101,7 +101,8 @@ public class RandomFileSorter {
         
         
         if(args.length <= 1){
-            System.out.println("Argumente überprüfgen.");
+            System.out.println("Argumente überprüfen.");
+            System.out.println("Usage: RandomFileSorter.jar PfadZumSourceOrdner PfadZumNichtExistentenTargetOrdner [(m)ove (optional für bewegen statt kopieren)]");
             return;
         }
         
@@ -113,13 +114,21 @@ public class RandomFileSorter {
         }
         if(outFolder.exists()){
             System.out.println(args[1] + " darf noch nicht existieren.");
+            return;
+        }
+        
+        boolean move = false;
+        
+        if(args.length == 3 && (args[2].equalsIgnoreCase("move") || args[2].equalsIgnoreCase("m")))
+        {
+            move = true;
         }
         
         outFolder.mkdir();
         
         
         RandomFileSorter sorter = new RandomFileSorter(inFolder, outFolder);
-        sorter.RandomSort(true);
+        sorter.RandomSort(move);
         
         
     }
